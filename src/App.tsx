@@ -9,12 +9,7 @@ function App() {
 
   useEffect(() => {
     dealPieces();
-    console.log(state);
   }, []);
-
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
 
   return (
     <div className="flex items-center w-screen h-screen justify-center">

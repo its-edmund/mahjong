@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import Piece from "./piece";
 import {
   closestCenter,
@@ -22,6 +22,8 @@ const Board = () => {
   const { state, dealPieces, updatePlayerHand } = useContext(GameContext);
   const [activeId, setActiveId] = useState(null);
   const [hand, setHand] = useState<PieceType[]>([]);
+  const pieceIds = useMemo(() => hand.map((piece) => piece.id), [hand]); // ["1", "2", "3"]
+
 
   useEffect(() => {
     setHand(state.players[0].hand);
@@ -44,12 +46,15 @@ const Board = () => {
       const activeIndex = hand.findIndex((piece) => piece.id === active.id);
       const overIndex = hand.findIndex((piece) => piece.id === over.id);
 
+      console.log(arrayMove(hand, activeIndex, overIndex))
+
       setHand(arrayMove(hand, activeIndex, overIndex));
     }
   };
 
   const sortHand = () => {
     const sortedPieces = hand.sort((a, b) => a.id - b.id);
+    console.log(sortedPieces)
     setHand(sortedPieces);
   };
 
@@ -74,10 +79,10 @@ const Board = () => {
       collisionDetection={closestCenter}
     >
       <SortableContext
-        items={hand}
+        items={pieceIds}
         strategy={horizontalListSortingStrategy}
       >
-        <div className="absolute bottom-8">
+        <div className="absolute bottom-8 flex flex-col items-center">
           <ul className="flex flex-row gap-2">
             {hand.map((piece) => (
               <Piece
@@ -86,7 +91,7 @@ const Board = () => {
               />
             ))}
           </ul>
-          <Button onClick={sortHand}>Sort</Button>
+          <Button className="mx-auto" onClick={sortHand}>Sort</Button>
         </div>
       </SortableContext>
       <DragOverlay>
