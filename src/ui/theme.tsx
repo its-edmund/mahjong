@@ -12,8 +12,10 @@ export function Label({ children, style }: { children: React.ReactNode; style?: 
 export function Button({ children, onPress, secondary, disabled, compact, label, style }: {
   children: React.ReactNode; onPress: () => void; secondary?: boolean; disabled?: boolean; compact?: boolean; label?: string; style?: ViewStyle;
 }) {
+  const [hovered, setHovered] = React.useState(false);
   return <Pressable accessibilityRole="button" accessibilityLabel={label} accessibilityState={{ disabled }} disabled={disabled} onPress={onPress}
-    style={({ pressed, hovered }) => [{ minHeight: compact ? 42 : 52, paddingHorizontal: compact ? 17 : 25, borderRadius: 16, alignItems: 'center', justifyContent: 'center', backgroundColor: secondary ? (hovered ? '#30463B' : '#24392F') : (hovered ? '#E5CD96' : colors.gold), opacity: disabled ? 0.36 : pressed ? 0.8 : 1, transform: [{ scale: pressed ? 0.98 : 1 }], borderWidth: secondary ? 1 : 0, borderColor: '#3C5143' }, style]}>
+    onHoverIn={() => setHovered(true)} onHoverOut={() => setHovered(false)}
+    style={({ pressed }) => [{ minHeight: compact ? 42 : 52, paddingHorizontal: compact ? 17 : 25, borderRadius: 16, alignItems: 'center', justifyContent: 'center', backgroundColor: secondary ? (hovered ? '#30463B' : '#24392F') : (hovered ? '#E5CD96' : colors.gold), opacity: disabled ? 0.36 : pressed ? 0.8 : 1, transform: [{ scale: pressed ? 0.98 : 1 }], borderWidth: secondary ? 1 : 0, borderColor: '#3C5143' }, style]}>
     <Type style={{ color: secondary ? colors.text : '#1B2A20', fontFamily: 'DMSans_600SemiBold', fontSize: compact ? 12 : 14 }}>{children}</Type>
   </Pressable>;
 }
