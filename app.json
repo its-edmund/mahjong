@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "Jade Table",
+    "slug": "jade-table",
+    "version": "0.1.0",
+    "scheme": "jadetable",
+    "orientation": "default",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.jadetable.app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single",
+      "name": "Jade Table"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-audio",
+        {
+          "microphonePermission": false
+        }
+      ],
+      "expo-status-bar",
+      "expo-font"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
